@@ -16,9 +16,9 @@ In this project, I utilized the knoweldge of the following:
 
 ## Usage
 To run the application, one must clone the repo, navigate to the root folder, and run the following commands from the terminal:     
-
+</br>
 Install Dependencies:    
-`npm install`
+`npm install` </br>
 Start Server:     
 `npm start`  
 
