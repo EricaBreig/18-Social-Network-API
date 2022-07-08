@@ -10,14 +10,9 @@ In this project, I utilized the knoweldge of the following:
 
 ## Table of Contents 
 
-* [Mock-up](#mock-up)
 * [Usage](#usage)
+* [Mock-up](#mock-up)
 * [Credit](#credit)
-
-
-## Mock-Up 
-The following image shows a preview of the application's functionality. Click on the image to see a video of the deployed application:
-[![Preview screenshot of Application](filepathgoeshere)](https://drive.google.com/drive/u/0/folders/1qA1S4DeQK8b83k8Z-Hd4DvQYNZJ2TeoH)
 
 ## Usage
 To run the application, one must clone the repo, navigate to the root folder, and run the following commands from the terminal:     
@@ -26,4 +21,9 @@ Install Dependencies:
 `npm install`
 Start Server:     
 `npm start`  
+
+## Mock-Up 
+The following image shows a preview of the application's functionality. Click on the image to see a video of the deployed application:
+[![Preview screenshot of Application](filepathgoeshere)](https://drive.google.com/drive/u/0/folders/1qA1S4DeQK8b83k8Z-Hd4DvQYNZJ2TeoH)
+
 
