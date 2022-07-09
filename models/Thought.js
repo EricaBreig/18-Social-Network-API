@@ -8,7 +8,8 @@ const thoughtSchema = new Schema(
     thoughtText: {
       type: String,
       required: true,
-      max_length: 200,
+      min_length: 1,
+      max_length: 280,
     },
     createdAt: {
       type: Date,
@@ -28,10 +29,9 @@ const thoughtSchema = new Schema(
     },
   }
 );
-
+// ==================== schema ====================
 thoughtSchema
-  .virtual("reactionCount")
-  // ==================== Getter ==================== 
+  .virtual("reactionCount") 
   .get(function () {
     return this.reactions.length;
   });
