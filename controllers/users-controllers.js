@@ -1,16 +1,16 @@
 const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-// Aggregate function to get the number of users overall
+// ==================== Aggregate function to get the number of users overall ==================== 
 const headCount = async () =>
   User.aggregate()
     .count('userCount')
     .then((numberOfUsers) => numberOfUsers);
 
-// Aggregate function for getting the overall grade using $avg
+// ==================== Aggregate function for getting the overall  grade using $avg ==================== 
 const grade = async (userId) =>
   User.aggregate([
-    // only include the given user by using $match
+    // === only include the given user by using $match ===
     { $match: { _id: ObjectId(userId) } },
     {
       $unwind: '$assignments',
@@ -39,13 +39,13 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // Get a single user
+  // ==================== Get a single user ==================== 
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.UserId })
       .select('-__v')
       .then(async (user) =>
         !user
-          ? res.status(404).json({ message: 'No user with that ID' })
+          ? res.status(404).json({ message: 'No such user with that ID' })
           : res.json({
               user,
               grade: await grade(req.params.userId),
@@ -62,7 +62,14 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a user and remove them from the course
+  
+  // ==================== Update a single user ==================== 
+  updateSingleUser(req, res) {
+    User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true })
+      .then((user) => res.json(user))
+      .catch((err) => res.status(500).json(err));
+  },
+  // ==================== Delete a user and remove them from the site ==================== 
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
       .then((user) =>
@@ -87,26 +94,26 @@ module.exports = {
       });
   },
 
-  // Add an assignment to a user
-  addAssignment(req, res) {
-    console.log('You are adding an assignment');
+  // ==================== Add an friend to a user ==================== 
+  addFriend(req, res) {
+    console.log('You are adding a friend :D');
     console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { assignments: req.body } },
+      { $addToSet: { friends: req.body } },
       { runValidators: true, new: true }
     )
       .then((user) =>
         !user
           ? res
               .status(404)
-              .json({ message: 'No user found with that ID :(' })
+              .json({ message: `No user found with that ID :'(` })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove assignment from a user
-  removeAssignment(req, res) {
+  // ==================== Remove assignment from a user's friend list ==================== 
+  removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $pull: { assignment: { assignmentId: req.params.assignmentId } } },
@@ -116,7 +123,7 @@ module.exports = {
         !user
           ? res
               .status(404)
-              .json({ message: 'No user found with that ID :(' })
+              .json({ message: `Sadface! No user found with that ID :'(` })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
