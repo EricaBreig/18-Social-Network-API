@@ -31,7 +31,7 @@ const studentSchema = new Schema(
     },
   }
 );
-//==================== schema ====================
+// ==================== schema ====================
 userSchema
   .virtual("friendCount")
   .get(function () {
