@@ -2,7 +2,7 @@ const { Thought, User } = require('../models');
 
 module.exports = {
   // ==================== Get all thoughts ==================== 
-  geThoughts(req, res) {
+  getThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
@@ -54,7 +54,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // ==================== Update a thought ==================== 
-  updateThought(req, res) {
+  updateSingleThought(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $set: req.body },
