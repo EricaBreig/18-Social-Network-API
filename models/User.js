@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 const thoughtSchema = require('./Thought');
 
 // ==================== Schema to create the User model ==================== 
-const studentSchema = new Schema(
+const userSchema = new Schema(
   {
     username: {
       type: String,

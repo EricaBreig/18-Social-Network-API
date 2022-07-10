@@ -6,20 +6,20 @@ This project is a functional backend for a social network API.
 In this project, I utilized the knoweldge of the following:
 - Node
 - MongoDB & Mongoose 
-- ExpressJS, MomentJS, NoDemon, and NoSQL
+- ExpressJS, MomentJS
 
 ## Table of Contents 
 
-* [Usage](#usage)
+* [Installation] (#installation)
 * [Mock-up](#mock-up)
 * [Credit](#credit)
 
-## Usage
-To run the application, one must clone the repo, navigate to the root folder, and run the following commands from the terminal:     
+## Installation
+To install the application, one must clone the repo, navigate to the root folder, and run the following commands from the terminal:     
 </br>
-Install Dependencies:    
+First, install the dependencies:    
 `npm install` </br>
-Start Server:     
+To start Server:     
 `npm start`  
 
 ## Mock-Up 
