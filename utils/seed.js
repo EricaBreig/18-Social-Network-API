@@ -36,8 +36,8 @@ connection.once('open', async () => {
   await User.collection.insertMany(users);
 
   // ==================== Add thoughts to the site and await the results ==================== 
-  await Thought.collection.insertOne({
-  });
+  // await Thought.collection.insertOne({
+  // });
 
   // ==================== Log out the seed data to indicate what should appear in the database ==================== 
   console.table(users);
