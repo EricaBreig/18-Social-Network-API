@@ -1,7 +1,7 @@
 const usernames = [
   "ericabreig",
   "angelFloofCake",
-  "MrBaby",
+  "MrBaby666",
   "PrimroseFloof",
   "yomama666",
 ];
@@ -13,17 +13,14 @@ const emails = [
   "yomamma12345@emailaddress.com",
 ];
 
-
-// ==================== Get a random item given an array ==================== 
+// ==================== Get a random item given an array ====================
 const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// ====================  Gets a random Username using the getRandomItem function ==================== 
-const getRandomUsername = () =>
-  `${getRandomItem(usernames)}`;
+// ====================  Gets a random Username using the getRandomItem function ====================
+const getRandomUsername = () => `${getRandomItem(usernames)}`;
 
-// ====================  Gets a random Email using getRandomItem function ==================== 
+// ====================  Gets a random Email using getRandomItem function ====================
 const getRandomEmail = () => `${getRandomItem(emails)}`;
 
-
-// ==================== Export the functions for use in seed.js ==================== 
+// ==================== Export the functions for use in seed.js ====================
 module.exports = { getRandomUsername, getRandomEmail };
