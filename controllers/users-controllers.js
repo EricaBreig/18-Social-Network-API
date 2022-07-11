@@ -80,7 +80,7 @@ module.exports = {
         });
         res
           .status(200)
-          .json({ message: "This useer and their thougts have been r e m o v e d !  :o" });
+          .json({ message: "This user & their thougts have been r e m o v e d !  :o" });
       } else {
         res.status(404).json({ message: "El gasp! No such user exists :O" });
       }
