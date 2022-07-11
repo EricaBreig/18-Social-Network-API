@@ -18,20 +18,18 @@ connection.once('open', async () => {
 
   // ==================== Loop 20 times -- add users to the users array ==================== 
   for (let i = 0; i < 20; i++) {
-    // ==== Get some random thought objects using a helper function that we imported from ./data ====
-    const thoughts = getRandomThoughts(20);
-
-    const fullName = getRandomUsername();
-    const first = fullName.split(' ')[0];
-    const last = fullName.split(' ')[1];
-    const github = `${first}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}`;
-
-    users.push({
-      first,
-      last,
-      email,
-      thoughts,
-    });
+    // ==== Get random Username or Email ====
+    const username = getRandomUsername(20);
+    const email = getRandomEmail();
+    if (
+      users.filter((e) => e.username === username).length === 0 &&
+      users.filter((e) => e.email === email).length === 0
+    ) {
+      users.push({
+        username: username,
+        email: email,
+      });
+    }
   }
 
   // ==================== Add users to the site and await the results ==================== 
