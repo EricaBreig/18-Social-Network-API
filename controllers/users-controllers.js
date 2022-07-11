@@ -80,9 +80,9 @@ module.exports = {
         });
         res
           .status(200)
-          .json({ message: "Removed user and associated thoughts" });
+          .json({ message: "This useer and their thougts have been r e m o v e d !  :o" });
       } else {
-        res.status(404).json({ message: "No such user exists" });
+        res.status(404).json({ message: "El gasp! No such user exists :O" });
       }
     } catch (e) {
       console.log(e);
