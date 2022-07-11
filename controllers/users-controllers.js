@@ -1,13 +1,13 @@
-const { ObjectId } = require('mongoose').Types;
-const { User, Thought } = require('../models');
+const { ObjectId } = require("mongoose").Types;
+const { User, Thought } = require("../models");
 
-// ==================== Aggregate function to get the number of users overall ==================== 
+// ==================== Aggregate function to get the number of users overall ====================
 // const headCount = async () =>
 //   User.aggregate()
 //     .count('userCount')
 //     .then((numberOfUsers) => numberOfUsers);
 
-// ==================== Aggregate function for getting the overall  grade using $avg ==================== 
+// ==================== Aggregate function for getting the overall  grade using $avg ====================
 // const grade = async (userId) =>
 //   User.aggregate([
 //     // === only include the given user by using $match ===
@@ -24,13 +24,12 @@ const { User, Thought } = require('../models');
 //   ]);
 
 module.exports = {
-  // ==================== Get all users ==================== 
+  // ==================== Get all users ====================
   getUsers(req, res) {
     User.find()
       .then(async (users) => {
         const userObj = {
           users,
-          headCount: await headCount(),
         };
         return res.json(userObj);
       })
@@ -39,7 +38,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // ==================== Get a single user ==================== 
+  // ==================== Get a single user ====================
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
@@ -56,20 +55,20 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // ==================== create a new user ==================== 
+  // ==================== create a new user ====================
   createUser(req, res) {
     User.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  
-  // ==================== Update a single user ==================== 
+
+  // ==================== Update a single user ====================
   updateSingleUser(req, res) {
     User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true })
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  // ==================== Delete a user and remove them from the site ==================== 
+  // ==================== Delete a user and remove them from the site ====================
   async deleteSingleUser(req, res) {
     try {
       const removedUser = await User.findOneAndRemove({
@@ -91,7 +90,7 @@ module.exports = {
     }
   },
 
-  // ==================== Add a friend ==================== 
+  // ==================== Add a friend ====================
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -100,13 +99,15 @@ module.exports = {
     )
       .then((user) =>
         !user
-          ? res.status(404).json({ message: "Sowwy! No user found with that ID :(" })
+          ? res
+              .status(404)
+              .json({ message: "Sowwy! No user found with that ID :(" })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
   },
-  
-  // ==================== Remove a friend from a user's friend list ==================== 
+
+  // ==================== Remove a friend from a user's friend list ====================
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
