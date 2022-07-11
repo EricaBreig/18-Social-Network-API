@@ -1,16 +1,8 @@
 const usernames = [
-  "ericabreig",
-  "angelFloofCake",
-  "MrBaby666",
-  "PrimroseFloof",
-  "yomama666",
+
 ];
 const emails = [
-  "victorianromantic@gmail.com",
-  "someemail@email.com",
-  "nakedcatsrule@hotmail.com",
-  "thisisapretendemail@yahoo.com",
-  "yomamma12345@emailaddress.com",
+ 
 ];
 
 // ==================== Get a random item given an array ====================
