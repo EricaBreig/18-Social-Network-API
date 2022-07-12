@@ -27,7 +27,7 @@ const thoughtSchema = new Schema(
   {
     toJSON: {
       getters: true,
-      getRandomEmail
+      virtuals: true,
     },
   }
 );
