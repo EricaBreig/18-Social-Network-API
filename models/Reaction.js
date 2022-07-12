@@ -1,11 +1,11 @@
-const { Schema, Types } = require('mongoose');
+const { Schema } = require('mongoose');
 const ObjectId = require("mongodb").ObjectId;
 
 const reactionSchema = new Schema(
   {
    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
+      type: ObjectId,
+      default: new ObjectId(),
       max_length:50,
     },
     reactionBody: {
@@ -19,7 +19,7 @@ const reactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now,
+      default: Date.now(),
       get: leDate,
     },
   },
@@ -27,7 +27,6 @@ const reactionSchema = new Schema(
     toJSON: {
       getters: true,
     },
-    id: false,
   }
 );
 

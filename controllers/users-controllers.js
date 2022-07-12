@@ -1,27 +1,6 @@
 const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
-// ==================== Aggregate function to get the number of users overall ====================
-// const headCount = async () =>
-//   User.aggregate()
-//     .count('userCount')
-//     .then((numberOfUsers) => numberOfUsers);
-
-// ==================== Aggregate function for getting the overall  grade using $avg ====================
-// const grade = async (userId) =>
-//   User.aggregate([
-//     // === only include the given user by using $match ===
-//     { $match: { _id: ObjectId(userId) } },
-//     {
-//       $unwind: '$assignments',
-//     },
-//     {
-//       $group: {
-//         _id: ObjectId(userId),
-//         overallGrade: { $avg: '$assignments.score' },
-//       },
-//     },
-//   ]);
 
 module.exports = {
   // ==================== Get all users ====================
@@ -45,7 +24,7 @@ module.exports = {
       .lean()
       .then(async (user) =>
         !user
-          ? res.status(404).json({ message: "No user with that ID" })
+          ? res.status(404).json({ message: "El gasp! There's no user with that ID!" })
           : res.json({
               user,
             })
@@ -68,15 +47,15 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  // ==================== Delete a user and remove them from the site ====================
+  // ==================== Delete a user ====================
   async deleteSingleUser(req, res) {
     try {
-      const removedUser = await User.findOneAndRemove({
+      const deletedUser = await User.findOneAndRemove({
         _id: req.params.userId,
       });
-      if (removedUser) {
+      if (deletedUser) {
         await Thought.deleteMany({
-          _id: removedUser.thoughts,
+          _id: deletedUser.thoughts,
         });
         res
           .status(200)
@@ -90,7 +69,7 @@ module.exports = {
     }
   },
 
-  // ==================== Add a friend ====================
+  // ==================== Give user a friend ====================
   addFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },

@@ -1,9 +1,5 @@
-const usernames = [
-
-];
-const emails = [
- 
-];
+const usernames = [];
+const emails = [];
 
 // ==================== Get a random item given an array ====================
 const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];

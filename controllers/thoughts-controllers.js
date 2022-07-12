@@ -41,7 +41,6 @@ module.exports = {
   deleteSingleThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>
-        // === need to delete from the user as well ===
         !thought
           ? res.status(404).json({ message: "No thought with that ID" })
           : User.findOneAndUpdate(
@@ -98,7 +97,7 @@ module.exports = {
         { new: true }
       );
       if (!thought) {
-        res.status(404).json({ message: "There's no thought(s) with that ID" });
+        res.status(404).json({ message: "There's no thought(s) with that ID. What emptiness." });
       }
       res.json(thought);
     } catch (e) {
