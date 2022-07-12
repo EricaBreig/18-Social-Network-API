@@ -15,6 +15,7 @@ const thoughtSchema = new Schema(
       type: Date,
       required: true,
       default: Date.now(),
+      get: leDate,
       // ==================== getter method to format the timestamp on query ==================== 
     },
     username: {
@@ -29,6 +30,16 @@ const thoughtSchema = new Schema(
     },
   }
 );
+
+function leDate(date) {
+  const sDate = date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  return sDate;
+}
+
 // ==================== schema ====================
 thoughtSchema
   .virtual("reactionCount") 

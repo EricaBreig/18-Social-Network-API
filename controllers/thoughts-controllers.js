@@ -1,24 +1,25 @@
-const { Thought, User } = require('../models');
+const { Thought, User } = require("../models");
+const ObjectId = require("mongodb").ObjectId;
 
 module.exports = {
-  // ==================== Get all thoughts ==================== 
+  // ==================== Get all thoughts ====================
   getThoughts(req, res) {
     Thought.find()
       .then((thoughts) => res.json(thoughts))
       .catch((err) => res.status(500).json(err));
   },
-  // ==================== Get a thought ==================== 
+  // ==================== Get a thought ====================
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
-      .select('-__v')
+      .select("-__v")
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: 'No thought with that ID' })
+          ? res.status(404).json({ message: "No thought with that ID" })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // ==================== Create a thought ==================== 
+  // ==================== Create a thought ====================
   createThought(req, res) {
     Thought.create(req.body)
       .then(async (thought) => {
@@ -36,7 +37,7 @@ module.exports = {
       });
   },
 
-  // ==================== Delete a thought ==================== 
+  // ==================== Delete a thought ====================
   deleteSingleThought(req, res) {
     Thought.findOneAndDelete({ _id: req.params.thoughtId })
       .then((thought) =>
@@ -53,7 +54,7 @@ module.exports = {
       .then(() => res.json({ message: "Thought deleted!" }))
       .catch((err) => res.status(500).json(err));
   },
-  // ==================== Update a thought ==================== 
+  // ==================== Update a thought ====================
   updateSingleThought(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -62,13 +63,15 @@ module.exports = {
     )
       .then((thought) =>
         !thought
-          ? res.status(404).json({ message: 'There is no thought with this id!' })
+          ? res
+              .status(404)
+              .json({ message: "There is no thought with this id!" })
           : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
 
-  // ==================== Create a reaction ==================== 
+  // ==================== Create a reaction ====================
   createReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
@@ -84,20 +87,22 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  deleteReaction(req, res) {
-    Thought.findOneAndUpdate(
-      { _id: req.params.thoughtId },
-      { $pull: { reactions: req.params.reactionId } },
-      { new: true }
-    )
-      .then((thought) => {
-        // === need to delete from user as well ===
-        if (!thought) {
-          res.status(404).json({ message: "There is no thought with that ID" });
-        }
-      })
-      .then(() => res.json(thought))
-      .catch((err) => res.status(500).json(err));
+
+// ==================== Delete a reaction ====================
+
+  async deleteReaction(req, res) {
+    try {
+      const thought = await Thought.findOneAndUpdate(
+        { _id: ObjectId(req.params.thoughtId) },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } },
+        { new: true }
+      );
+      if (!thought) {
+        res.status(404).json({ message: "There's no thought(s) with that ID" });
+      }
+      res.json(thought);
+    } catch (e) {
+      res.status(500).json(e);
+    }
   },
 };
-
